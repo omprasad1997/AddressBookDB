@@ -42,6 +42,22 @@ public class AddressBookDBService {
         return this.getAddressBookDataUsingDB(sql);
     }
 
+    public int getAddressBookDataForGivenCityOrStateName(String city) {
+        String sql = String.format("select count(city) from addressbook where city='%s';",city);
+        int count=0;
+        try (Connection connection = this.getConnection();) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            System.out.println(resultSet);
+            while(resultSet.next()){
+                count = resultSet.getInt("count(city)");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
     private List<AddressBookData> getAddressBookDataUsingDB(String sql) {
         List<AddressBookData> addressBookDataList = new ArrayList<>();
         try (Connection connection = this.getConnection();) {
@@ -108,6 +124,7 @@ public class AddressBookDBService {
         }
         return 0;
     }
+
 
 
 }

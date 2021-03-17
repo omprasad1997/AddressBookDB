@@ -5,6 +5,7 @@ import java.util.List;
 
 public class AddressBookService {
 
+
     public enum IOService{DB_IO}
     private List<AddressBookData> addressBookData;
     private AddressBookDBService addressBookDBService;
@@ -24,6 +25,13 @@ public class AddressBookService {
             return addressBookDBService.getAddressBookDataForDateRange(startDate,endDate);
         return null;
     }
+
+    public int readAddressBookDataForGivenCityName(IOService ioService, String cityName) {
+        if(ioService.equals(IOService.DB_IO))
+            return addressBookDBService.getAddressBookDataForGivenCityOrStateName(cityName);
+        return 0;
+    }
+
 
     public boolean checkAddressBookDataInSyncWithDB(String name) {
         List<AddressBookData> addressBookDataList = addressBookDBService.getAddressBookData(name);
