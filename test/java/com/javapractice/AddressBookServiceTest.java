@@ -39,4 +39,16 @@ public class AddressBookServiceTest {
         Assertions.assertEquals(4,addressBookDataList.size());
 
     }
+    @Test
+    public void givenCityOrStateName_WhenRetrieved_ShouldReturnAddressBookContactCount() {
+        AddressBookService addressBookService = new AddressBookService();
+        addressBookService.readAddressBookDataFromDB(AddressBookService.IOService.DB_IO);
+        String cityName = "nanded";
+        int numberOfCount =
+                addressBookService.readAddressBookDataForGivenCityName(AddressBookService.IOService.DB_IO, cityName);
+
+        System.out.println(numberOfCount);
+        Assertions.assertEquals(2, numberOfCount);
+    }
+
 }
